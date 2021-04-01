@@ -8,7 +8,21 @@ module.exports = async function (msg, args){
 
 
     const id = await r6api.getId(platform, username).then(el => el[0].id);
+    el.on('uncaughtException', function(error) {
+      msg.channel.send("User does not exist!");
+      return;
+    });
+    
+
+
     const stats = await r6api.getStats(platform, id).then(el => el[0]);
+
+    //id.on('uncaughtException', function(error) {
+
+      //msg.channel.send("User does not exist!");
+      //return;
+
+    //});
     
     msg.channel.send(`${username} has killed ${stats.pvp.general.kills} players.`)
     
